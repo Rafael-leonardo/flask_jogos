@@ -10,6 +10,15 @@ Ainda preciso fazer:
     > Adicionar o Flask_Email para recuperação de senha
     > Adicionar um função simples de teste de venda de produto.
 
+No ultimo commit foi adicionado:
+
+    > Mais dados seram requisitados para o usuario.
+    > descrição adicionada.
+
+Erro:
+    
+    > Após o ultimo commit, a aplicação não irá funcionar 
+        por erro no Banco de dados, Foreign Key error.
 
 Iniciando a aplicação sera necessario que utilize o seguintes comandos no CMD:
 
