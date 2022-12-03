@@ -7,23 +7,21 @@
 <a class="btn btn-danger" href="{{ url_for('logout')}}">Logout</a>
 
 <table class="table table-striped table-responsive table-bordered">
-    <thead class="thead-default">
-        <tr>
-            <th>Nome</th>
-            <th>categoria</th>
-            <th>console</th>
-        </tr>
-    </thead>
-    <tbody>
-        {% for jogo in jogos: %}
-        <tr class="form-group">
-            <td>{{ jogo.nome }}</td>
-            <td>{{ jogo.categoria }}</td>
-            <td>{{ jogo.console }}</td>
-            <td><a href="{{url_for('editar', id=jogo.id)}}">Editar</a></td>
-            <td><a href="{{url_for('deletar', id=jogo.id)}}">deletar</a></td>
-        </tr>
-        {% endfor %}
+    <tbody class="row justify-content-center d-flex">
+        <div class="row">
+            {% for jogo in jogos: %}
+            <div class="col-3 justify-content-center divJogos">
+                <img class="img-fluid" style="margin-top: 15px;" src="{{ url_for('imagem', nome_arquivo=capa_jogo) }}">
+                <p style="margin-left: 15px;"> {{ jogo.nome }} </p>
+                <p style="margin-left: 15px;"> categoria: {{ jogo.categoria }} </p>
+                <p style="margin-left: 15px;"> console: {{ jogo.console }} </p>
+                <p style="margin-left: 15px;"> descricao: {{ jogo.descricao }} </p>
+                <a class="btn btn-primary" href="{{url_for('jogo_page', id=jogo.id)}}">Abrir</a>
+                <a class="btn btn-primary" href="{{url_for('editar', id=jogo.id)}}">Editar</a>
+                <a style="margin-left: 5px;" class="btn btn-danger" href="{{url_for('deletar', id=jogo.id)}}">deletar</a>
+            </div> 
+            {% endfor %}
+        </div>
     </tbody>
 </table>
 </div>

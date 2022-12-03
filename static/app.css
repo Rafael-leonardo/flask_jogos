@@ -70,3 +70,9 @@ td {
     margin-left: 1em;
     margin-bottom: 1em;
 }
+
+.divJogos {
+    background-color: azure;
+    margin-bottom: 15px;
+    margin-left: 15px;
+}

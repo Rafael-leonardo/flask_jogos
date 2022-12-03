@@ -16,11 +16,11 @@ def login():
 @app.route('/autenticar', methods=['POST', ])
 def autenticar():
     form = FormularioUsuario(request.form)
-    usuario = User.query.filter_by(nickname=form.nickname.data).first()
+    usuario = User.query.filter_by(email=form.email.data).first()
     senha = check_password_hash(usuario.senha, form.senha.data)
 
     if usuario and senha:
-        session['usuario_logado'] = usuario.nickname
+        session['usuario_logado'] = usuario.email
         flash(usuario.nickname + ' logado com sucesso!')
         proxima_pagina = request.form['proxima']
         return redirect(proxima_pagina)
@@ -46,10 +46,12 @@ def cadastrar():
 
     nome = form.nome.data
     nickname = form.nickname.data
+    email = form.email.data
+    idade = form.idade.data
     senha = form.senha.data
     senha = generate_password_hash(senha)
     
-    novo_user = User(nome=nome, nickname=nickname, senha=senha)
+    novo_user = User(nome=nome, nickname=nickname, email=email, idade=idade, senha=senha)
     db.session.add(novo_user)
     db.session.commit()
 

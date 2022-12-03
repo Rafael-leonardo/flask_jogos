@@ -1,0 +1,28 @@
+{% extends "template.html" %}
+{% block conteudo %}
+
+<form class="formularioJogo" action="{{ url_for('comentar') }}" method="post" enctype="multipart/form-data">
+
+  <figure class="img thumbnail col-md-4 formularioImagem">
+    <img class="img-fluid" src="{{ url_for('imagem', nome_arquivo=capa_jogo) }}">
+  </figure>
+
+  <fieldset>
+    <input type="hidden" name="id" value="{{ id }}">
+    {{ form.csrf_token() }}
+    <p style="margin-left: 15px;"> {{ jogo.nome }} </p>
+    <p style="margin-left: 15px;"> categoria: {{ jogo.categoria }} </p>
+    <p style="margin-left: 15px;"> console: {{ jogo.console }} </p>
+    <p style="margin-left: 15px;"> descricao: {{ jogo.descricao }} </p>
+    <div class="form-group inputBox">
+        {{ form.comentario.label(class="form-label") }}
+        {{ form.comentario(class="form-control") }}
+        <a class="btn btn-primary" style="margin-top: 5px;" hreg="{{url_for('comentar', id=jogo.id)}}">Comentar</a>
+      </div>
+    <div class="form-group buttons">    
+      <a class="btn btn-danger" href="{{ url_for('index') }}">Voltar</a>
+    </div>
+  </fieldset>
+</form>
+
+{% endblock %}

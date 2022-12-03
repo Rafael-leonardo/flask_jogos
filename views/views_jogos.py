@@ -1,15 +1,14 @@
 from flask import render_template, request, redirect, flash, session, url_for, send_from_directory
 from app import app, db
-from models.models import Jogos
-from helpers import recupera_imagem, deleta_arquivo, FormularioJogo
+from models.models import Jogos, Comentario
+from helpers import recupera_imagem, deleta_arquivo, FormularioJogo, FormularioComentario
 import time
 
 @app.route('/')
-def index():
+def index():    
     lista = Jogos.query.order_by(Jogos.nome)
-
-    capa_jogo = recupera_imagem(id)
-    return render_template('lista.html', titulo='Jogos',  capa_jogo=capa_jogo, jogos = lista)
+    capa_jogo = recupera_imagem(1)
+    return render_template('lista.html', titulo='Jogos', jogos=lista, capa_jogo=capa_jogo)
 
 @app.route('/novo_jogo')
 def novo_jogo():
@@ -19,6 +18,14 @@ def novo_jogo():
     form = FormularioJogo()
 
     return render_template('novo_jogo.html', titulo='Novo Jogo', form=form)
+
+@app.route('/jogo/<int:id>', methods=["POST", "GET"])
+def jogo_page(id):
+    jogo = Jogos.query.filter_by(id=id).first()
+    capa_jogo = recupera_imagem(id)
+    form = FormularioComentario()
+    return render_template('jogo_page.html', titulo='Editar Jogo', id=id, capa_jogo=capa_jogo, jogo=jogo, form=form)
+
 
 @app.route('/editar/<int:id>')
 def editar(id):
@@ -34,6 +41,19 @@ def editar(id):
 
     capa_jogo = recupera_imagem(id)
     return render_template('editar.html', titulo='Editar Jogo', id=id, capa_jogo=capa_jogo, form=form)
+
+@app.route('/comentar/<int:id>')
+def comentar(id):
+    form = FormularioComentario(request.form)
+    comentario = form.comentario.data
+    
+    novo_comentario = Comentario(comentario=comentario, jogo_id=id)
+    
+    db.session.add(novo_comentario)
+    db.commit()
+    
+    return redirect(url_for('index'))
+
 
 @app.route('/atualizar', methods=['POST',])
 def atualizar():
