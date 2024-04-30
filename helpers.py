@@ -1,12 +1,15 @@
 import os
 from app import app, db
-from wtforms import StringField, SubmitField, PasswordField, validators, EmailField
+from wtforms import StringField, SubmitField, PasswordField, validators, EmailField, FileField
 from flask_wtf import FlaskForm
+from models.models import Jogos
 
 class FormularioJogo(FlaskForm):
     nome = StringField('Nome do Jogo', [validators.DataRequired(), validators.Length(min=1, max=50)])
     categoria = StringField('Categoria', [validators.DataRequired(), validators.Length(min=1, max=40)])
     console = StringField('Console', [validators.DataRequired(), validators.Length(min=1, max=20)])
+    descricao = StringField('descricao', [validators.DataRequired(), validators.Length(min=1, max=200)])
+    imagem = FileField('Imagem')
     salvar = SubmitField('Salvar')
 
 class FormularioCadastro(FlaskForm):
@@ -26,10 +29,13 @@ class FormularioComentario(FlaskForm):
     comentario = StringField('Comentario', [validators.Length(min=1, max=250)])
     comentar = SubmitField('Comentar')
 
-def recupera_imagem(id):
+def recupera_imagem():
     for nome_arquivo in os.listdir(app.config['UPLOAD_PATH']):
-        if f'capa{id}' in nome_arquivo:
-            return nome_arquivo
+        list_id = db.session.query(Jogos.id).all()
+        for jogo_id in list_id:
+            print(jogo_id[0])
+            if f'capa{jogo_id}' in nome_arquivo:
+                return nome_arquivo
         return 'capa_padrao.webp'
 
 def recupera_imagem2():

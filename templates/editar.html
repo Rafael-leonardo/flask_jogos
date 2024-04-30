@@ -4,7 +4,7 @@
 <form class="formularioJogo" action="{{ url_for('atualizar') }}" method="post" enctype="multipart/form-data">
 
   <figure class="img thumbnail col-md-4 formularioImagem">
-    <img class="img-fluid" src="{{ url_for('imagem', nome_arquivo=capa_jogo) }}">
+    <img class="img-fluid" src="{{ url_for('imagem', nome_arquivo=capa_jogo) }}" alt="Capa do Jogo">
     <figcaption>
       <label class="fileContainer">
         Mudar Capa
@@ -15,7 +15,8 @@
 
   <fieldset>
     <input type="hidden" name="id" value="{{ id }}">
-    {{ form.csrf_token() }}
+    {{ form.hidden_tag() }}  <!-- Inclui automaticamente CSRF token -->
+    
     <div class="form-group inputBox">
       {{ form.nome.label(class="form-label") }}
       {{ form.nome(class="form-control") }}
@@ -28,8 +29,9 @@
       {{ form.console.label(class="form-label") }}
       {{ form.console(class="form-control") }}
     </div>
+    
     <div class="form-group buttons">
-      {{ form.salvar(class="btn btn-primary") }}
+      <button type="submit" class="btn btn-primary">Salvar</button>  <!-- Botão de envio padrão -->
       <a class="btn btn-danger" href="{{ url_for('index') }}">Voltar</a>
     </div>
   </fieldset>
