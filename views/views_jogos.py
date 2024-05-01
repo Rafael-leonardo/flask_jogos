@@ -26,7 +26,7 @@ def jogo_page(id):
     return render_template('jogo_page.html', titulo='Editar Jogo', id=id, capa_jogo=capa_jogo, jogo=jogo, form=form)
 
 
-@app.route('/editar/<int:id>')
+@app.route('/editar/<int:id>', methods=['POST', 'GET', 'PUT'])
 def editar(id):
     if 'usuario_logado' not in session or session['usuario_logado'] == None:
         return redirect(url_for('login', proxima=url_for('editar', id=id)))
@@ -41,7 +41,7 @@ def editar(id):
 
     return render_template('editar.html', titulo='Editar Jogo', id=id, form=form)
 
-@app.route('/atualizar', methods=['POST', 'GET'])
+@app.route('/atualizar', methods=['POST', 'GET', 'PUT'])
 def atualizar():
     form = FormularioJogo(request.form)
 
@@ -53,13 +53,9 @@ def atualizar():
         jogo.descricao = form.descricao.data
         jogo.imagem = form.imagem.data
 
+        db.session.add(jogo)
         db.session.commit()
 
-        arquivo = request.files['arquivo']
-        upload_path = app.config['UPLOAD_PATH'] 
-        timestamp = time.time()
-        deleta_arquivo(jogo.id)
-        arquivo.save(f'{upload_path}/capa{jogo.id}-{timestamp}.jpeg')
 
     return redirect(url_for('index'))
 
@@ -92,7 +88,7 @@ def criar():
 
     #if form.imagem.data:
     #    if hasattr(form.imagem.data, 'filename') and hasattr(form.imagem.data, 'read'):
-    #        imagem = form.imagem.data.read()  # Leia os dados binários do arquivo
+    #        imagem = form.imagem.data.read() 
     #    else:
     #       flash("Campo de imagem não é um arquivo válido")
     #       return redirect(url_for('novo_jogo'))

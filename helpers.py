@@ -33,7 +33,6 @@ def recupera_imagem():
     for nome_arquivo in os.listdir(app.config['UPLOAD_PATH']):
         list_id = db.session.query(Jogos.id).all()
         for jogo_id in list_id:
-            print(jogo_id[0])
             if f'capa{jogo_id}' in nome_arquivo:
                 return nome_arquivo
         return 'capa_padrao.webp'

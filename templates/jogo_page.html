@@ -16,6 +16,8 @@
     <p style="margin-left: 15px;"> descricao: {{ jogo.descricao }} </p>
     <div class="form-group buttons">    
       <a class="btn btn-danger" href="{{ url_for('index') }}">Voltar</a>
+      <a class="btn btn-primary" href="{{url_for('editar', id=jogo.id)}}">Editar</a>
+      <a style="margin-left: 5px;" class="btn btn-danger" href="{{url_for('deletar', id=jogo.id)}}">deletar</a>
     </div>
   </fieldset>
 </form>

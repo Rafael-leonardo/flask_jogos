@@ -17,8 +17,6 @@
                 <p style="margin-left: 15px;"> console: {{ jogo.console }} </p>
                 <p style="margin-left: 15px;"> descricao: {{ jogo.descricao }} </p>
                 <a class="btn btn-primary" href="{{url_for('jogo_page', id=jogo.id)}}">Abrir</a>
-                <a class="btn btn-primary" href="{{url_for('editar', id=jogo.id)}}">Editar</a>
-                <a style="margin-left: 5px;" class="btn btn-danger" href="{{url_for('deletar', id=jogo.id)}}">deletar</a>
             </div> 
             {% endfor %}
         </div>
