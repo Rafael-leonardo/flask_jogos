@@ -1,13 +1,12 @@
 Nesse repositorio vemos um crud em python utilizando Flask, Sqlalchemy e banco de dados MySql.
 Ainda preciso fazer:
 
-    > Fazer a função de editar voltar a funcionar 
     > Com que as fotos dos jogos apareçam junto a lista da page de index
     > Melhorar o HTML e CSS.
     > Aprimorar o Banco de Dados.
         > Adicioanr mais dados sobre o usuario.
         > Definir se o usuario pode fazer modificações no site.
-        > Adicionar comentarios e descrição.
+        > Adicionar comentarios.
     > Adicionar o Flask_Email para recuperação de senha
     > Adicionar um função simples de teste de venda de produto.
 
